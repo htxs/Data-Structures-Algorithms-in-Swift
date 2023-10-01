@@ -101,3 +101,38 @@ example(of: "using collection") {
     let sum = list.reduce(0, +)
     print("Sum of all values: \(sum)")
 }
+
+example(of: "array cow") {
+    let array1 = [1, 2]
+    var array2 = array1
+    
+    print("array1: \(array1)")
+    print("array2: \(array2)")
+    
+    print("After adding 3 to array2")
+    array2.append(3)
+    print("array1: \(array1)")
+    print("array2: \(array2)")
+}
+
+example(of: "linked list cow") {
+    var list1 = LinkedList<Int>()
+    list1.append(1)
+    list1.append(2)
+    var list2 = list1
+    
+    print("list1: \(list1)")
+    print("list2: \(list2)")
+    
+    print("After appending 3 to list2")
+    list2.append(3)
+    print("list1: \(list1)")
+    print("list2: \(list2)")
+    
+    print("Removing middle node on list2")
+    if let node = list2.node(at: 0) {
+        list2.remove(after: node)
+    }
+    print("list1: \(list1)")
+    print("list2: \(list2)")
+}

@@ -10,6 +10,7 @@ public struct LinkedList<Value> {
     }
     
     public mutating func push(_ value: Value) {
+        copyNodes()
         head = Node(value: value, next: head)
         if tail == nil {
             tail = head
@@ -17,6 +18,7 @@ public struct LinkedList<Value> {
     }
     
     public mutating func append(_ value: Value) {
+        copyNodes()
         guard !isEmpty else {
             push(value)
             return
@@ -39,6 +41,7 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func insert(_ value: Value, after node: Node<Value>) -> Node<Value> {
+        copyNodes()
         guard tail !== node else {
             append(value)
             return tail!
@@ -49,6 +52,7 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func pop() -> Value? {
+        copyNodes()
         defer {
             head = head?.next
             if isEmpty {
@@ -60,6 +64,7 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func removeLast() -> Value? {
+        copyNodes()
         guard let head = head else {
             return nil
         }
@@ -81,6 +86,9 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func remove(after node: Node<Value>) -> Value? {
+        guard let node = copyNodes(returningCopyOf: node) else {
+            return nil
+        }
         defer {
             if node.next === tail {
                 tail = node
@@ -88,6 +96,52 @@ public struct LinkedList<Value> {
             node.next = node.next?.next
         }
         return node.next?.value
+    }
+    
+    private mutating func copyNodes() {
+        guard !isKnownUniquelyReferenced(&head) else {
+            return
+        }
+        guard var oldNode = head else {
+            return
+        }
+        
+        head = Node(value: oldNode.value)
+        var newNode = head
+        
+        while let nextOldNode = oldNode.next {
+            newNode!.next = Node(value: nextOldNode.value)
+            newNode = newNode!.next
+            oldNode = nextOldNode
+        }
+        
+        tail = newNode
+    }
+    
+    private mutating func copyNodes(returningCopyOf node: Node<Value>?) -> Node<Value>? {
+        guard !isKnownUniquelyReferenced(&head) else {
+            return nil
+        }
+        guard var oldNode = head else {
+            return nil
+        }
+        
+        head = Node(value: oldNode.value)
+        var newNode = head
+        var nodeCopy: Node<Value>?
+        
+        while let nextOldNode = oldNode.next {
+            if oldNode === node {
+                nodeCopy = newNode
+            }
+            newNode!.next = Node(value: nextOldNode.value)
+            newNode = newNode!.next
+            oldNode = nextOldNode
+        }
+        
+        tail = newNode
+        
+        return nodeCopy
     }
 }
 
