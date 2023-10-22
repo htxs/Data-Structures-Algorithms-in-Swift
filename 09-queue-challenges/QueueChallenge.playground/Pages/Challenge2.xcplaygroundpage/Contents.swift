@@ -23,19 +23,19 @@
 
 /*:
  ### Array-based
- #imageLiteral(resourceName: "Array-based.png")
+ ![Array-based](Array-based.png)
  
  ### Linked list
- #imageLiteral(resourceName: "Linked-list.png")
+ ![Linked-list](Linked-list.png)
  
  ### Ring buffer
- #imageLiteral(resourceName: "Ring-buffer.png")
+ ![Ring-buffer](Ring-buffer.png)
  
  ### Stack-based
- #imageLiteral(resourceName: "Stack-based1.png")
- #imageLiteral(resourceName: "Stack-based2.png")
- #imageLiteral(resourceName: "Stack-based3.png")
- #imageLiteral(resourceName: "Stack-based4.png")
+ ![Stack-based1](Stack-based1.png)
+ ![Stack-based2](Stack-based2.png)
+ ![Stack-based3](Stack-based3.png)
+ ![Stack-based4](Stack-based4.png)
  */
 
 //: [Next Challenge](@next)
